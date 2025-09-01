@@ -1,0 +1,58 @@
+.footer {
+    position: relative;
+    width: 100%;
+    padding: 1rem 2rem;
+    margin-top: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    background: rgba(20, 20, 40, 0.25); /* glass */
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-text {
+    margin: 0;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.footer-text .highlight {
+    font-weight: 600;
+    color: #a855f7; /* CineVision purple */
+}
+
+.tmdb-link {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.tmdb-link:hover {
+    color: #6c42f5;
+}
+
+.tmdb-logo {
+    height: 22px;
+    width: auto;
+    border-radius: 4px;
+}
