@@ -3620,3 +3620,191 @@ body::before {
     background: rgba(255,255,255,0.1);
     box-shadow: var(--shadow-lg), var(--glow-card);
 }
+
+.dynamic-background,
+.backdrop-fill,
+.backdrop-overlay {
+    pointer-events: none;
+}
+
+.detail-page .hero-section,
+.detail-page .content-sections,
+.detail-page .return-btn,
+.detail-page .scroll-hint {
+    position: relative;
+    z-index: 2;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    background: rgba(0,0,0,.6);
+}
+
+.modal-content {
+    width: 95vw;
+    max-width: 900px;
+    background: #0f1117;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    flex-wrap: wrap;
+}
+
+.section-header .scroll-controls {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    position: relative;
+    z-index: 3;
+}
+
+.section-header .genre-pill,
+.section-header .btn,
+.section-header .btn-icon,
+.section-header select {
+    position: relative;
+    z-index: 3;
+}
+
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-danger {
+    min-height: 44px;
+    padding: .65rem 1rem;
+    border-radius: 10px;
+    line-height: 1;
+}
+
+.btn-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+}
+
+.btn-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.providers-grid,
+.cast-row,
+.similar-row {
+    position: relative;
+    z-index: 2;
+}
+
+.provider-card,
+.cast-card,
+.similar-card {
+    position: relative;
+}
+
+.provider-card .btn-icon,
+.provider-card button {
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+    z-index: 3;
+}
+
+.video-container iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+}
+
+/* Episodes list cards */
+.providers-section .providers-grid .provider-card .episode-info {
+    display: grid;
+    gap: .35rem;
+}
+
+.providers-section .providers-grid .provider-card .btn-icon {
+    position: absolute;
+    right: .6rem;
+    bottom: .6rem;
+    z-index: 3;
+}
+
+/* Mobile tweaks */
+@media (max-width: 640px) {
+    .section-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .section-header .scroll-controls {
+        width: 100%;
+    }
+
+    .section-header .scroll-controls > * {
+        flex: 1 1 auto;
+    }
+
+    .genre-pill,
+    .section-header select {
+        width: 100%;
+        min-height: 44px;
+        padding: .55rem .75rem;
+        border-radius: 999px;
+    }
+
+    .watchlist-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: .6rem;
+        width: 100%;
+    }
+
+    .primary-actions {
+        display: grid;
+        gap: .6rem;
+        width: 100%;
+    }
+
+    .trailer-preview img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .providers-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: .8rem;
+    }
+
+    .cast-row,
+    .similar-row {
+        gap: 12px;
+    }
+}
+
+/* Ensure scroll buttons are above any overlays */
+.scroll-btn {
+    position: relative;
+    z-index: 3;
+}
+
+/* Select reset for consistent tap targets */
+select.genre-pill {
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #fff;
+}
