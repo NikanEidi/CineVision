@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { supabase } from './supabaseClient';
 import './App.css';
-import { FaHome, FaFilm, FaTv, FaBookmark, FaSearch, FaStar } from 'react-icons/fa';
+import {FaHome, FaFilm, FaTv, FaBookmark, FaSearch, FaStar, FaLightbulb} from 'react-icons/fa';
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const FALLBACK_POSTER = '/no-image.png';
@@ -181,7 +181,7 @@ export default function DashBoard() {
                         <li onClick={() => navigate('/movies')}><FaFilm /> Movies</li>
                         <li onClick={() => navigate('/shows')}><FaTv /> Shows</li>
                         <li onClick={() => navigate('/search')}><FaSearch /> Search</li>
-                        <li onClick={() => navigate('/recommendation')}><FaStar /> Recommendations</li>
+                        <li onClick={() => navigate('/recommendation')}><FaLightbulb /> Recommendation</li>
                         <li onClick={() => navigate('/watchlist')}><FaBookmark /> Watchlist</li>
                     </ul>
                 </aside>
