@@ -242,7 +242,7 @@ const Recommendation = () => {
                             <FaSearch className="menu-icon" /> <span className="menu-text">Search</span>
                         </li>
                         <li className="active" onClick={() => navigate('/recommendation')}>
-                            <FaLightbulb className="menu-icon" /> <span className="menu-text">Recommendation</span>
+                            <FaLightbulb className="menu-icon" /> <span className="menu-text">Recommend</span>
                         </li>
                         <li onClick={() => navigate('/watchlist')}>
                             <FaBookmark className="menu-icon" /> <span className="menu-text">Watchlist</span>
