@@ -205,7 +205,7 @@ const Watchlist = () => {
                         {/* New: Recommendation entry in sidebar */}
                         {/* Keeps same structure; routes to your recommendation page */}
                         <li onClick={() => navigate('/recommendation')}>
-                            <FaLightbulb className="menu-icon" /> <span className="menu-text">Recommendation</span>
+                            <FaLightbulb className="menu-icon" /> <span className="menu-text">Recommend</span>
                         </li>
 
                         <li className="active">
