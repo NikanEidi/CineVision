@@ -1,0 +1,4 @@
+echo "backend/artifacts/" >> .gitignore
+git rm -r --cached backend/artifacts
+git commit -m "Remove artifacts from repo, generate dynamically"
+git push origin main
