@@ -1,58 +1,65 @@
 .footer {
     position: relative;
-    width: 100%;
-    padding: 1rem 2rem;
-    margin-top: 3rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-    background: rgba(20, 20, 40, 0.25); /* glass */
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px) saturate(150%);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
-
+    padding: 20px;
+    text-align: center;
     color: #fff;
-    font-size: 0.9rem;
+    background: rgba(20, 10, 40, 0.6); /* glass look */
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+    z-index: 0;
 }
 
 .footer-content {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-    justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 .footer-text {
-    margin: 0;
     font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 10px;
 }
 
 .footer-text .highlight {
     font-weight: 600;
-    color: #a855f7; /* CineVision purple */
+    color: #a855f7; /* CineVision accent */
+}
+
+.tmdb-attribution {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
 }
 
 .tmdb-link {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 8px;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.9);
+    color: #fff;
     font-size: 0.9rem;
-    transition: 0.3s;
+    transition: opacity 0.2s;
 }
 
 .tmdb-link:hover {
-    color: #6c42f5;
+    opacity: 0.85;
 }
 
 .tmdb-logo {
-    height: 22px;
+    height: 24px;
     width: auto;
-    border-radius: 4px;
+}
+
+.tmdb-note {
+    font-size: 0.75rem;
+    color: #ccc;
+    max-width: 420px;
+    text-align: center;
+    line-height: 1.3;
 }
