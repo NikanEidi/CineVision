@@ -181,7 +181,7 @@ export default function DashBoard() {
                         <li onClick={() => navigate('/movies')}><FaFilm /> Movies</li>
                         <li onClick={() => navigate('/shows')}><FaTv /> Shows</li>
                         <li onClick={() => navigate('/search')}><FaSearch /> Search</li>
-                        <li onClick={() => navigate('/recommendation')}><FaLightbulb /> Recommendation</li>
+                        <li onClick={() => navigate('/recommendation')}><FaLightbulb /> Recommend</li>
                         <li onClick={() => navigate('/watchlist')}><FaBookmark /> Watchlist</li>
                     </ul>
                 </aside>
