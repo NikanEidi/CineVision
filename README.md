@@ -73,12 +73,6 @@ It helps users **discover, organize, and track** their watchlists while providin
 
 ---
 
-## 🌍 Live Demo
-
-🔗 **Frontend**: [https://cinevision-frontend.onrender.com](#)  
-🔗 **Backend API**: [https://cinevision.onrender.com](https://cinevision.onrender.com)  
-
----
 
 ## 📝 Attribution
 
