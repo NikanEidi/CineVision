@@ -2,22 +2,22 @@ import React, { useEffect, useRef, useState } from 'react';
 import { supabase } from './supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { FaLock, FaLockOpen, FaEye, FaEyeSlash } from 'react-icons/fa';
-import './App.css';
+import './styles/index.css';
 
 function UpdatePassword() {
     // Two fields + a bit of UI niceties
     const [password, setPassword] = useState('');
-    const [confirm, setConfirm]   = useState('');
+    const [confirm, setConfirm] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [showConfirm, setShowConfirm]   = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
-    const [error, setError]       = useState('');
-    const [message, setMessage]   = useState('');
+    const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const videoRef = useRef(null);
 
     useEffect(() => {
-        videoRef.current?.play?.().catch(() => {});
+        videoRef.current?.play?.().catch(() => { });
     }, []);
 
     const passwordsMatch = password && confirm ? password === confirm : true;

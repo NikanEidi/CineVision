@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from './supabaseClient';
-import './App.css';
+import './styles/index.css';
 import { FaUser, FaEnvelope, FaLock, FaLockOpen, FaEye, FaEyeSlash, FaGoogle, FaApple } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -58,7 +58,7 @@ function SignUp() {
 
     // Autoplay the background video (best-effort, some browsers block it)
     useEffect(() => {
-        videoRef.current?.play?.().catch(() => {});
+        videoRef.current?.play?.().catch(() => { });
     }, []);
 
     // Simple form field updater
@@ -71,9 +71,9 @@ function SignUp() {
     // Map strength score to label + color
     const getPasswordStrengthInfo = () => {
         if (passwordStrength === 0) return { label: '', color: '#9ca3af' };           // gray
-        if (passwordStrength <= 40)  return { label: 'Weak', color: '#ef4444' };      // red
-        if (passwordStrength <= 60)  return { label: 'Fair', color: '#f59e0b' };      // amber
-        if (passwordStrength <= 80)  return { label: 'Strong', color: '#10b981' };    // green
+        if (passwordStrength <= 40) return { label: 'Weak', color: '#ef4444' };      // red
+        if (passwordStrength <= 60) return { label: 'Fair', color: '#f59e0b' };      // amber
+        if (passwordStrength <= 80) return { label: 'Strong', color: '#10b981' };    // green
         return { label: 'Very strong', color: '#22c55e' };                            // brighter green
     };
     const strengthInfo = getPasswordStrengthInfo();
@@ -257,12 +257,12 @@ function SignUp() {
                                         }}
                                     />
                                     <div className="strength-labels">
-                    <span id="password-strength-text" aria-live="polite">
-                      {}
-                    </span>
+                                        <span id="password-strength-text" aria-live="polite">
+                                            { }
+                                        </span>
                                         <span className="strength-percent">
 
-                    </span>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -280,8 +280,8 @@ function SignUp() {
                                         style={{
                                             boxShadow: formData.confirmPassword
                                                 ? (passwordsMatch
-                                                        ? '0 0 0 2px #10b98122 inset' // green-ish when matches
-                                                        : '0 0 0 2px #ef444422 inset'  // red-ish when mismatch
+                                                    ? '0 0 0 2px #10b98122 inset' // green-ish when matches
+                                                    : '0 0 0 2px #ef444422 inset'  // red-ish when mismatch
                                                 )
                                                 : 'none'
                                         }}

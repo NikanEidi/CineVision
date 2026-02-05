@@ -10,10 +10,10 @@ import {
     FaVolumeUp, FaVolumeMute, FaChevronLeft, FaChevronRight,
     FaLayerGroup, FaSync
 } from 'react-icons/fa';
-import './App.css';
+import './styles/index.css';
 
 const FALLBACK_POSTER = 'https://via.placeholder.com/300x450?text=No+Image';
-const FALLBACK_STILL  = 'https://via.placeholder.com/320x180?text=No+Still';
+const FALLBACK_STILL = 'https://via.placeholder.com/320x180?text=No+Still';
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 const tmdbImg = (path, size = 'w500') =>
@@ -563,10 +563,10 @@ const Detail = () => {
 
                             <div className="meta-info">
                                 <div className="rating-container">
-                                    <RatingCircle rating={item.vote_average}/>
+                                    <RatingCircle rating={item.vote_average} />
                                     <div className="rating-stats">
                                         <div className="stat">
-                                            <FaStar className="star-icon"/>
+                                            <FaStar className="star-icon" />
                                             <span>{item.vote_count?.toLocaleString()} votes</span>
                                         </div>
                                     </div>
@@ -574,7 +574,7 @@ const Detail = () => {
 
                                 <div className="genres-container">
                                     {item.genres?.slice(0, 3).map((genre, idx) => (
-                                        <GenrePill key={idx} genre={genre.name}/>
+                                        <GenrePill key={idx} genre={genre.name} />
                                     ))}
                                 </div>
                             </div>
@@ -582,7 +582,7 @@ const Detail = () => {
                             <p className="overview">{item.overview}</p>
 
                             <div className="detail-stats">
-                                <StatItem icon={FaCalendarAlt} label="Release Date" value={releaseDate}/>
+                                <StatItem icon={FaCalendarAlt} label="Release Date" value={releaseDate} />
                                 <StatItem
                                     icon={FaClock}
                                     label={type === 'tv' ? 'Episode Runtime' : 'Runtime'}
@@ -592,14 +592,14 @@ const Detail = () => {
                                             : `${formatRuntime(item.runtime)}`
                                     }
                                 />
-                                <StatItem icon={FaGlobe} label="Language" value={(item.original_language || 'N/A').toUpperCase()}/>
+                                <StatItem icon={FaGlobe} label="Language" value={(item.original_language || 'N/A').toUpperCase()} />
                             </div>
 
                             <div className="action-buttons">
                                 <div className="primary-actions">
                                     {trailerUrl && (
                                         <button className="btn btn-primary trailer-btn" onClick={openTrailer} type="button">
-                                            <FaPlay/>
+                                            <FaPlay />
                                             <span>Watch Trailer</span>
                                         </button>
                                     )}
@@ -607,19 +607,19 @@ const Detail = () => {
                                     {isInWatchlist ? (
                                         <div className="watchlist-actions">
                                             <button className="btn btn-danger" onClick={handleRemoveFromWatchlist} type="button">
-                                                <FaBookmark/>
+                                                <FaBookmark />
                                                 Remove from Watchlist
                                             </button>
                                             {type === 'movie' && !watched && (
                                                 <button className="btn btn-success" onClick={handleMarkAsWatched} type="button">
-                                                    <FaEye/>
+                                                    <FaEye />
                                                     Mark as Watched
                                                 </button>
                                             )}
                                         </div>
                                     ) : (
                                         <button className="btn btn-secondary" onClick={handleAddToWatchlist} type="button">
-                                            <FaBook/>
+                                            <FaBook />
                                             Add to Watchlist
                                         </button>
                                     )}
@@ -633,7 +633,7 @@ const Detail = () => {
                                         aria-label="Add to favorites"
                                         type="button"
                                     >
-                                        <FaHeart/>
+                                        <FaHeart />
                                     </button>
                                     <button
                                         className="btn-icon"
@@ -644,7 +644,7 @@ const Detail = () => {
                                                     title: item.title || item.name,
                                                     text: item.overview,
                                                     url: window.location.href,
-                                                }).catch(() => {});
+                                                }).catch(() => { });
                                             } else {
                                                 navigator.clipboard.writeText(window.location.href);
                                             }
@@ -653,7 +653,7 @@ const Detail = () => {
                                         aria-label="Share"
                                         type="button"
                                     >
-                                        <FaShare/>
+                                        <FaShare />
                                     </button>
                                     <button
                                         className="btn-icon"
@@ -662,7 +662,7 @@ const Detail = () => {
                                         aria-label="Go back"
                                         type="button"
                                     >
-                                        <FaArrowLeft/>
+                                        <FaArrowLeft />
                                     </button>
                                 </div>
                             </div>
@@ -671,9 +671,9 @@ const Detail = () => {
                         {trailerThumbnail && (
                             <div className="trailer-section">
                                 <div className="trailer-preview" onClick={openTrailer}>
-                                    <img src={trailerThumbnail} alt="Trailer thumbnail"/>
+                                    <img src={trailerThumbnail} alt="Trailer thumbnail" />
                                     <div className="play-overlay">
-                                        <FaPlay className="play-icon"/>
+                                        <FaPlay className="play-icon" />
                                         <span></span>
                                     </div>
                                 </div>
@@ -711,7 +711,7 @@ const Detail = () => {
                                         title="Toggle season watched status"
                                         type="button"
                                     >
-                                        <FaSync/>
+                                        <FaSync />
                                         Mark as Watched
                                     </button>
                                 </div>
@@ -753,7 +753,7 @@ const Detail = () => {
                                                 aria-label={isSeen ? 'Unmark watched' : 'Mark as watched'}
                                                 type="button"
                                             >
-                                                <FaEye/>
+                                                <FaEye />
                                             </button>
                                         </div>
                                     );
@@ -779,7 +779,7 @@ const Detail = () => {
                                         className="provider-card"
                                         title={`Watch on ${provider.provider_name}`}
                                     >
-                                        <img src={tmdbImg(provider.logo_path, 'original')} alt={provider.provider_name}/>
+                                        <img src={tmdbImg(provider.logo_path, 'original')} alt={provider.provider_name} />
                                         <span>{provider.provider_name}</span>
                                     </a>
                                 ))}
@@ -801,7 +801,7 @@ const Detail = () => {
                                         title="Scroll left"
                                         type="button"
                                     >
-                                        <FaChevronLeft/>
+                                        <FaChevronLeft />
                                     </button>
                                     <button
                                         className="scroll-btn"
@@ -810,7 +810,7 @@ const Detail = () => {
                                         title="Scroll right"
                                         type="button"
                                     >
-                                        <FaChevronRight/>
+                                        <FaChevronRight />
                                     </button>
                                 </div>
                             </div>
@@ -827,7 +827,7 @@ const Detail = () => {
                                 }}
                             >
                                 {cast.map((actor, index) => (
-                                    <CastCard key={index} actor={actor}/>
+                                    <CastCard key={index} actor={actor} />
                                 ))}
                             </div>
                         </section>
@@ -847,7 +847,7 @@ const Detail = () => {
                                         title="Scroll left"
                                         type="button"
                                     >
-                                        <FaChevronLeft/>
+                                        <FaChevronLeft />
                                     </button>
                                     <button
                                         className="scroll-btn"
@@ -856,7 +856,7 @@ const Detail = () => {
                                         title="Scroll right"
                                         type="button"
                                     >
-                                        <FaChevronRight/>
+                                        <FaChevronRight />
                                     </button>
                                 </div>
                             </div>

@@ -3,8 +3,8 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { supabase } from './supabaseClient';
-import './App.css';
-import {FaHome, FaFilm, FaTv, FaBookmark, FaSearch, FaStar, FaLightbulb} from 'react-icons/fa';
+import './styles/index.css';
+import { FaHome, FaFilm, FaTv, FaBookmark, FaSearch, FaStar, FaLightbulb } from 'react-icons/fa';
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const FALLBACK_POSTER = '/no-image.png';
@@ -27,7 +27,7 @@ export default function DashBoard() {
     const [aiRecommendations, setAiRecommendations] = useState([]);
 
     useEffect(() => {
-        if (videoRef.current) videoRef.current.play().catch(() => {});
+        if (videoRef.current) videoRef.current.play().catch(() => { });
     }, []);
 
     useEffect(() => {
@@ -141,8 +141,8 @@ export default function DashBoard() {
                                         loading="lazy"
                                     />
                                     <span className="movies-rating" style={{ position: 'absolute', top: 10, left: 10 }}>
-                    <FaStar /> {rating}
-                  </span>
+                                        <FaStar /> {rating}
+                                    </span>
                                 </div>
                                 <div className="movies-card-info">
                                     <h4>{title}</h4>

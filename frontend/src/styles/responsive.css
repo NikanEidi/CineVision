@@ -1,0 +1,703 @@
+/*******************************************************************************
+ * CineVision Responsive - Comprehensive Responsive Breakpoints
+ * 
+ * All responsive adjustments in one place for consistency.
+ * Import LAST after all other CSS files.
+ ******************************************************************************/
+
+/* =============================================================================
+   BREAKPOINT REFERENCE
+   
+   - Desktop XL: 1600px+
+   - Desktop: 1400px - 1599px
+   - Desktop SM: 1200px - 1399px
+   - Tablet LG: 1024px - 1199px
+   - Tablet: 768px - 1023px
+   - Mobile LG: 600px - 767px
+   - Mobile: 480px - 599px
+   - Mobile SM: < 480px
+   ============================================================================= */
+
+/* =============================================================================
+   DESKTOP LARGE (1400px - 1599px)
+   ============================================================================= */
+
+@media (max-width: 1599px) {
+    .hero-content {
+        gap: var(--space-8);
+    }
+
+    .poster-section {
+        width: 320px;
+    }
+
+    .trailer-section {
+        width: 360px;
+    }
+
+    .bento-section:nth-child(1) .bento-grid-content,
+    .bento-section:nth-child(2) .bento-grid-content {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* =============================================================================
+   DESKTOP SMALL (1200px - 1399px)
+   ============================================================================= */
+
+@media (max-width: 1399px) {
+
+    .bento-section:nth-child(1) .bento-grid-content,
+    .bento-section:nth-child(2) .bento-grid-content {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+        text-align: center;
+    }
+
+    .poster-section {
+        width: 280px;
+        margin: 0 auto;
+    }
+
+    .trailer-section {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .info-section {
+        max-width: 100%;
+    }
+
+    .meta-info {
+        justify-content: center;
+    }
+
+    .genres-container {
+        justify-content: center;
+    }
+
+    .action-buttons {
+        justify-content: center;
+    }
+
+    .detail-stats {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* =============================================================================
+   TABLET LARGE (1024px - 1199px)
+   ============================================================================= */
+
+@media (max-width: 1199px) {
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bento-section:nth-child(3),
+    .bento-section:nth-child(4) {
+        grid-column: 1;
+    }
+
+    .bento-section:nth-child(1) .bento-grid-content,
+    .bento-section:nth-child(2) .bento-grid-content {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .bento-section:nth-child(3) .bento-grid-content,
+    .bento-section:nth-child(4) .bento-grid-content {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Auth pages - stack panels */
+    .login-content,
+    .signup-content {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .left-panel {
+        padding: var(--space-10) var(--space-8);
+    }
+
+    .left-panel::after {
+        display: none;
+    }
+
+    .headline {
+        text-align: center;
+    }
+
+    .right-panel {
+        padding: var(--space-10) var(--space-8);
+    }
+}
+
+/* =============================================================================
+   TABLET (768px - 1023px)
+   ============================================================================= */
+
+@media (max-width: 1023px) {
+
+    /* Sidebar transforms to bottom nav */
+    .sidebar,
+    .movies-sidebar {
+        position: fixed;
+        inset: auto 0 0 0;
+        width: 100%;
+        height: var(--sidebar-mobile-height);
+        flex-direction: row;
+        padding: var(--space-2) var(--space-4);
+        border-right: none;
+        border-top: 1px solid var(--glass-border-light);
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: var(--space-1);
+
+        /* Remove shine overlays */
+        &::before,
+        &::after {
+            display: none;
+        }
+    }
+
+    /* Hide logo in bottom nav */
+    .logo,
+    .movies-logo {
+        display: none;
+    }
+
+    /* Menu becomes horizontal */
+    .menu,
+    .movies-menu {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        gap: var(--space-1);
+    }
+
+    .menu li,
+    .movies-menu li {
+        flex-direction: column;
+        gap: var(--space-1);
+        padding: var(--space-2) var(--space-3);
+        min-width: 60px;
+        text-align: center;
+        border-radius: var(--radius-md);
+    }
+
+    .menu li svg,
+    .movies-menu li svg {
+        font-size: var(--text-lg);
+    }
+
+    .menu-text {
+        font-size: var(--text-xs);
+    }
+
+    /* Active indicator moves to top */
+    .menu li.active::after,
+    .movies-menu li.active::after {
+        left: 20%;
+        right: 20%;
+        top: 0;
+        bottom: auto;
+        width: auto;
+        height: 3px;
+    }
+
+    /* Main content adjustment */
+    .main-content,
+    .movies-main {
+        margin-left: 0;
+        padding-bottom: calc(var(--sidebar-mobile-height) + var(--space-6));
+    }
+
+    .bento-section:nth-child(1) .bento-grid-content,
+    .bento-section:nth-child(2) .bento-grid-content,
+    .bento-section:nth-child(3) .bento-grid-content,
+    .bento-section:nth-child(4) .bento-grid-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Hide scroll controls - touch users swipe */
+    .scroll-controls {
+        display: none;
+    }
+
+    /* Detail page adjustments */
+    .return-btn {
+        left: var(--space-4);
+        top: var(--space-4);
+        padding: var(--space-2) var(--space-4);
+    }
+
+    .poster-section {
+        width: 240px;
+    }
+
+    .detail-title {
+        font-size: var(--text-3xl);
+    }
+
+    .detail-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Providers grid */
+    .providers-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =============================================================================
+   MOBILE LARGE (600px - 767px)
+   ============================================================================= */
+
+@media (max-width: 767px) {
+    .bento-section {
+        padding: var(--space-4);
+        min-height: 260px;
+    }
+
+    .section-header,
+    .movies-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+    }
+
+    .view-all {
+        align-self: flex-end;
+    }
+
+    .section-title {
+        font-size: var(--text-lg);
+    }
+
+    .bento-section:nth-child(1) .bento-grid-content,
+    .bento-section:nth-child(2) .bento-grid-content,
+    .bento-section:nth-child(3) .bento-grid-content,
+    .bento-section:nth-child(4) .bento-grid-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Auth adjustments */
+    .login-container,
+    .signup-container {
+        padding: var(--space-4);
+    }
+
+    .left-panel,
+    .right-panel {
+        padding: var(--space-8) var(--space-6);
+    }
+
+    .eye-container {
+        width: 150px;
+        height: 150px;
+    }
+
+    .brand-title {
+        font-size: var(--text-3xl);
+    }
+
+    /* Action buttons stack */
+    .action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .primary-actions,
+    .watchlist-actions,
+    .secondary-actions {
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .btn-icon {
+        width: 100%;
+    }
+
+    /* Meta info stacks */
+    .meta-info {
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+
+    .detail-stats {
+        grid-template-columns: 1fr;
+    }
+
+    /* Cast/similar cards smaller */
+    .cast-card {
+        width: 130px;
+    }
+
+    .similar-card {
+        width: 140px;
+    }
+
+    /* Provider cards */
+    .provider-card {
+        grid-template-columns: 80px 1fr;
+    }
+
+    .provider-card img {
+        width: 80px;
+        height: 45px;
+    }
+}
+
+/* =============================================================================
+   MOBILE (480px - 599px)
+   ============================================================================= */
+
+@media (max-width: 599px) {
+
+    /* Menu text hidden on small mobile */
+    .menu-text {
+        display: none;
+    }
+
+    .menu li,
+    .movies-menu li {
+        min-width: 50px;
+        padding: var(--space-2);
+    }
+
+    .bento-section:nth-child(1) .bento-grid-content,
+    .bento-section:nth-child(2) .bento-grid-content,
+    .bento-section:nth-child(3) .bento-grid-content,
+    .bento-section:nth-child(4) .bento-grid-content {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-2);
+    }
+
+    .movies-header h1 {
+        font-size: var(--text-2xl);
+    }
+
+    .headline {
+        font-size: var(--text-2xl);
+    }
+
+    .login-title,
+    .signup-title {
+        font-size: var(--text-xl);
+    }
+
+    /* Form options stack */
+    .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Social buttons stack */
+    .social-login {
+        flex-direction: column;
+    }
+
+    /* Hero section */
+    .hero-section {
+        padding: var(--space-12) var(--space-4) var(--space-6);
+        min-height: auto;
+    }
+
+    .poster-section {
+        width: 200px;
+    }
+
+    .detail-title {
+        font-size: var(--text-2xl);
+    }
+
+    /* Trailer */
+    .trailer-section {
+        max-width: 100%;
+    }
+
+    /* Search adjustments */
+    .cvsearch__header {
+        padding: var(--space-3);
+        flex-wrap: wrap;
+    }
+
+    .cvsearch__form {
+        order: 3;
+        width: 100%;
+        margin-top: var(--space-2);
+    }
+
+    .cvsearch__nav {
+        display: none;
+    }
+
+    .cvsearch__stage {
+        height: clamp(380px, 55vh, 520px);
+    }
+
+    .cvsearch__posterWrap {
+        width: clamp(180px, 65vw, 260px);
+    }
+
+    /* Cast/similar smaller */
+    .cast-card {
+        width: 110px;
+    }
+
+    .similar-card {
+        width: 120px;
+    }
+}
+
+/* =============================================================================
+   MOBILE SMALL (< 480px)
+   ============================================================================= */
+
+@media (max-width: 479px) {
+
+    .bento-section:nth-child(1) .bento-grid-content,
+    .bento-section:nth-child(2) .bento-grid-content {
+        grid-template-columns: 1fr;
+    }
+
+    .media-card,
+    .movies-card {
+        max-width: 100%;
+    }
+
+    .poster-section {
+        width: 180px;
+    }
+
+    .detail-title {
+        font-size: var(--text-xl);
+    }
+
+    .eye-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    .brand-title {
+        font-size: var(--text-2xl);
+    }
+
+    /* Very small cards */
+    .cast-card {
+        width: 90px;
+    }
+
+    .similar-card {
+        width: 100px;
+    }
+
+    .cvsearch__posterWrap {
+        width: clamp(160px, 70vw, 220px);
+    }
+}
+
+/* =============================================================================
+   EXTRA SMALL (< 360px)
+   ============================================================================= */
+
+@media (max-width: 359px) {
+
+    .sidebar,
+    .movies-sidebar {
+        height: 64px;
+        padding: var(--space-1) var(--space-2);
+    }
+
+    .menu li,
+    .movies-menu li {
+        min-width: 44px;
+        padding: var(--space-1);
+    }
+
+    .menu li svg,
+    .movies-menu li svg {
+        font-size: var(--text-base);
+    }
+
+    .main-content,
+    .movies-main {
+        padding-bottom: calc(64px + var(--space-4));
+    }
+
+    .cvsearch__posterWrap {
+        width: clamp(150px, 75vw, 200px);
+    }
+}
+
+/* =============================================================================
+   LANDSCAPE MOBILE
+   ============================================================================= */
+
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .sidebar,
+    .movies-sidebar {
+        height: 56px;
+    }
+
+    .menu li,
+    .movies-menu li {
+        flex-direction: row;
+        gap: var(--space-2);
+    }
+
+    .hero-section {
+        min-height: auto;
+        padding-top: var(--space-8);
+    }
+
+    .poster-section {
+        width: 180px;
+    }
+
+    .eye-container {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* =============================================================================
+   HIGH DPI DISPLAYS (Retina)
+   ============================================================================= */
+
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+
+    .glass,
+    .glass-subtle,
+    .glass-strong,
+    .glass-intense {
+        /* Slightly reduce blur on high DPI for performance */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+}
+
+/* =============================================================================
+   REDUCED MOTION - Accessibility
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .auth-video {
+        display: none;
+    }
+
+    .auth-bg {
+        background: var(--bg-secondary);
+    }
+
+    .backdrop-fill {
+        animation: none;
+        transform: scale(1.02);
+    }
+
+    body::before {
+        animation: none;
+    }
+}
+
+/* =============================================================================
+   PRINT STYLES
+   ============================================================================= */
+
+@media print {
+
+    .sidebar,
+    .movies-sidebar,
+    .return-btn,
+    .scroll-hint,
+    .play-button,
+    .play-icon,
+    .btn-icon,
+    .scroll-controls {
+        display: none !important;
+    }
+
+    .main-content,
+    .movies-main {
+        margin-left: 0;
+        padding: 0;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .glass,
+    .glass-subtle,
+    .glass-strong {
+        background: white;
+        border: 1px solid #ccc;
+    }
+}
+
+/* =============================================================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ============================================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    /* Larger touch targets */
+    .menu li,
+    .movies-menu li {
+        min-height: 48px;
+    }
+
+    .btn {
+        min-height: 48px;
+    }
+
+    .btn-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .scroll-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* Remove hover effects that don't work on touch */
+    .card-overlay,
+    .movie-overlay,
+    .play-overlay,
+    .similar-overlay {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .play-button,
+    .play-icon {
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+}

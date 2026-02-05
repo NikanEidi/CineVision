@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import { Link } from 'react-router-dom';
-import './App.css';
+import './styles/index.css';
 
 function ForgotPassword() {
     // Keeping it dead simple: one field + one message
@@ -12,7 +12,7 @@ function ForgotPassword() {
     const videoRef = useRef(null);
 
     useEffect(() => {
-        videoRef.current?.play?.().catch(() => {});
+        videoRef.current?.play?.().catch(() => { });
     }, []);
 
     const handleSend = async (e) => {

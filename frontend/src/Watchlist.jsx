@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
 import { FaHome, FaFilm, FaTv, FaBookmark, FaStar, FaSearch, FaLightbulb } from 'react-icons/fa'; // added FaLightbulb for Recommendation
-import './App.css';
+import './styles/index.css';
 
 const FALLBACK_POSTER = '/no-image.png'; // keep in /public
 
@@ -12,19 +12,19 @@ const Watchlist = () => {
 
     // Data state
     const [watchlist, setWatchlist] = useState([]);
-    const [loading, setLoading]     = useState(true);
-    const [error, setError]         = useState('');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     // UI state
     // viewMode: 'genre' | 'rating' | 'type'
-    const [viewMode, setViewMode]         = useState('genre');
-    const [genreFilter, setGenreFilter]   = useState('All');   // filter for genre view
-    const [ratingOrder, setRatingOrder]   = useState('desc');  // 'desc' | 'asc'
+    const [viewMode, setViewMode] = useState('genre');
+    const [genreFilter, setGenreFilter] = useState('All');   // filter for genre view
+    const [ratingOrder, setRatingOrder] = useState('desc');  // 'desc' | 'asc'
 
     // Try autoplay on mobile
     const videoRef = useRef(null);
     useEffect(() => {
-        videoRef.current?.play?.().catch(() => {});
+        videoRef.current?.play?.().catch(() => { });
     }, []);
 
     // Load watchlist once
@@ -104,7 +104,7 @@ const Watchlist = () => {
     // Split into movies vs shows
     const { moviesOnly, showsOnly } = useMemo(() => {
         const movies = [];
-        const shows  = [];
+        const shows = [];
         for (const it of watchlist) {
             const type = it.media_type || (it.name ? 'tv' : 'movie');
             if (type === 'movie') movies.push(it);
@@ -125,10 +125,10 @@ const Watchlist = () => {
             <div className="movies-scroll-container">
                 <div className="movies-scroll-row">
                     {(items || []).map((item) => {
-                        const title     = item.title || item.name || 'Untitled';
-                        const poster    = posterUrl(item.poster_path);
-                        const rating    = typeof item.vote_average === 'number' ? item.vote_average.toFixed(1) : '—';
-                        const mediaId   = item.media_id ?? item.id;
+                        const title = item.title || item.name || 'Untitled';
+                        const poster = posterUrl(item.poster_path);
+                        const rating = typeof item.vote_average === 'number' ? item.vote_average.toFixed(1) : '—';
+                        const mediaId = item.media_id ?? item.id;
                         const mediaType = item.media_type || (item.name ? 'tv' : 'movie');
 
                         return (
@@ -148,8 +148,8 @@ const Watchlist = () => {
                                         loading="lazy"
                                     />
                                     <span className="movies-rating" style={{ position: 'absolute', top: 10, left: 10 }}>
-                    <FaStar /> {rating}
-                  </span>
+                                        <FaStar /> {rating}
+                                    </span>
                                 </div>
                                 <div className="movies-card-info">
                                     <h4>{title}</h4>
@@ -329,7 +329,7 @@ const Watchlist = () => {
                         {!loading && !error && watchlist.length > 0 && viewMode === 'type' && (
                             <>
                                 {renderRowSection('Movies', moviesOnly)}
-                                {renderRowSection('Shows',  showsOnly)}
+                                {renderRowSection('Shows', showsOnly)}
                             </>
                         )}
                     </div>

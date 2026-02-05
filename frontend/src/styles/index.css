@@ -1,0 +1,25 @@
+/*******************************************************************************
+ * CineVision Styles - Main Entry Point
+ * 
+ * Import order matters! Load in this sequence:
+ * 1. Design System (variables, resets, utilities)
+ * 2. Components (reusable UI components)
+ * 3. Layouts (page structures)
+ * 4. Page-specific (search, detail, etc.)
+ * 5. Responsive (must be last to override)
+ ******************************************************************************/
+
+/* Core design system - variables, reset, utilities, animations */
+@import './design-system.css';
+
+/* Reusable components - buttons, cards, sidebar, footer, etc. */
+@import './components.css';
+
+/* Page layouts - dashboard, auth, detail page structures */
+@import './layouts.css';
+
+/* Page-specific styles */
+@import './search.css';
+
+/* Responsive breakpoints - MUST BE LAST */
+@import './responsive.css';

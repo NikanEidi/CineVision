@@ -5,8 +5,9 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     FaSearch, FaTimes, FaArrowLeft, FaChevronLeft, FaChevronRight, FaStar, FaHeart, FaShareAlt,
+    FaHome, FaFilm, FaTv, FaBookmark, FaLightbulb,
 } from 'react-icons/fa';
-import './App.css';
+import './styles/index.css';
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const FALLBACK_POSTER =
@@ -258,7 +259,7 @@ export default function Search() {
                 }}
             />
 
-            {/* Header with Back → Dashboard and Search */}
+            {/* Header with Back → Dashboard, Navigation Buttons, and Search */}
             <header className="cvsearch__header">
                 <motion.button
                     className="cvsearch__back"
@@ -269,6 +270,45 @@ export default function Search() {
                 >
                     <FaArrowLeft /> Dashboard
                 </motion.button>
+
+                {/* Navigation Buttons Group */}
+                <nav className="cvsearch__nav-group" aria-label="Main navigation">
+                    <button
+                        className="cvsearch__nav-btn"
+                        onClick={() => navigate('/dashboard')}
+                        aria-label="Go to Home"
+                    >
+                        <FaHome /> <span>Home</span>
+                    </button>
+                    <button
+                        className="cvsearch__nav-btn"
+                        onClick={() => navigate('/movies')}
+                        aria-label="Browse Movies"
+                    >
+                        <FaFilm /> <span>Movies</span>
+                    </button>
+                    <button
+                        className="cvsearch__nav-btn"
+                        onClick={() => navigate('/shows')}
+                        aria-label="Browse TV Shows"
+                    >
+                        <FaTv /> <span>Shows</span>
+                    </button>
+                    <button
+                        className="cvsearch__nav-btn"
+                        onClick={() => navigate('/recommendation')}
+                        aria-label="Get Recommendations"
+                    >
+                        <FaLightbulb /> <span>Recommend</span>
+                    </button>
+                    <button
+                        className="cvsearch__nav-btn"
+                        onClick={() => navigate('/watchlist')}
+                        aria-label="View Watchlist"
+                    >
+                        <FaBookmark /> <span>Watchlist</span>
+                    </button>
+                </nav>
 
                 <form
                     className="cvsearch__form"
@@ -372,8 +412,8 @@ export default function Search() {
                                             <span className="cvsearch__chip">{(item.date || '').slice(0, 4) || '—'}</span>
                                             <span className="cvsearch__chip">{item.media_type === 'movie' ? 'Movie' : 'TV'}</span>
                                             <span className="cvsearch__chip cvsearch__chip--rate">
-                        <FaStar /> {item.vote_average?.toFixed(1) ?? '—'}
-                      </span>
+                                                <FaStar /> {item.vote_average?.toFixed(1) ?? '—'}
+                                            </span>
                                         </div>
                                     </div>
 

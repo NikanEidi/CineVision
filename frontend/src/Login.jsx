@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
-import './App.css';
+import './styles/index.css';
 
 import {
     FaEnvelope,
@@ -14,13 +14,13 @@ import {
 } from 'react-icons/fa';
 
 function Login() {
-    const [email, setEmail]                 = useState('');
-    const [password, setPassword]           = useState('');
-    const [showPassword, setShowPassword]   = useState(false);
-    const [rememberMe, setRememberMe]       = useState(false);
-    const [isLoading, setIsLoading]         = useState(false);
-    const [error, setError]                 = useState('');
-    const [isBlinking, setIsBlinking]       = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [isBlinking, setIsBlinking] = useState(false);
 
     const videoRef = useRef(null);
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ function Login() {
 
     // Try to make autoplay reliable on mobile.
     useEffect(() => {
-        videoRef.current?.play?.().catch(() => {});
+        videoRef.current?.play?.().catch(() => { });
     }, []);
 
     const handleSubmit = async (e) => {

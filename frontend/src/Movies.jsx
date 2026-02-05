@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import {
     FaHome, FaFilm, FaTv, FaBookmark, FaStar, FaFire, FaPlay, FaTrophy, FaClock, FaBolt, FaSearch, FaLightbulb
 } from 'react-icons/fa'; // +FaLightbulb for Recommendation
-import './App.css';
+import './styles/index.css';
 
 const FALLBACK_POSTER = '/no-image.png';
 
@@ -16,17 +16,17 @@ const Movies = () => {
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
     // Simple buckets for the rows
-    const [popular, setPopular]       = useState([]);
+    const [popular, setPopular] = useState([]);
     const [nowPlaying, setNowPlaying] = useState([]);
-    const [topRated, setTopRated]     = useState([]);
-    const [upcoming, setUpcoming]     = useState([]);
-    const [trending, setTrending]     = useState([]);
-    const [error, setError]           = useState('');
+    const [topRated, setTopRated] = useState([]);
+    const [upcoming, setUpcoming] = useState([]);
+    const [trending, setTrending] = useState([]);
+    const [error, setError] = useState('');
     const videoRef = useRef(null);
 
     // Try to autoplay background
     useEffect(() => {
-        videoRef.current?.play?.().catch(() => {});
+        videoRef.current?.play?.().catch(() => { });
     }, []);
 
     // Fetch all sections together
@@ -45,10 +45,10 @@ const Movies = () => {
                     upcomingRes,
                     trendingRes
                 ] = await Promise.all([
-                    axios.get('https://api.themoviedb.org/3/movie/popular',       { params: { api_key: API_KEY } }),
-                    axios.get('https://api.themoviedb.org/3/movie/now_playing',   { params: { api_key: API_KEY } }),
-                    axios.get('https://api.themoviedb.org/3/movie/top_rated',     { params: { api_key: API_KEY } }),
-                    axios.get('https://api.themoviedb.org/3/movie/upcoming',      { params: { api_key: API_KEY } }),
+                    axios.get('https://api.themoviedb.org/3/movie/popular', { params: { api_key: API_KEY } }),
+                    axios.get('https://api.themoviedb.org/3/movie/now_playing', { params: { api_key: API_KEY } }),
+                    axios.get('https://api.themoviedb.org/3/movie/top_rated', { params: { api_key: API_KEY } }),
+                    axios.get('https://api.themoviedb.org/3/movie/upcoming', { params: { api_key: API_KEY } }),
                     axios.get('https://api.themoviedb.org/3/trending/movie/week', { params: { api_key: API_KEY } }),
                 ]);
 
@@ -69,11 +69,11 @@ const Movies = () => {
     // Map section key -> icon (just for nice headings)
     const getSectionIcon = (sectionKey) => {
         const iconMap = {
-            popular:    <FaFire   className="section-icon" />,
-            nowPlaying: <FaPlay   className="section-icon" />,
-            topRated:   <FaTrophy className="section-icon" />,
-            upcoming:   <FaClock  className="section-icon" />,
-            trending:   <FaBolt   className="section-icon" />
+            popular: <FaFire className="section-icon" />,
+            nowPlaying: <FaPlay className="section-icon" />,
+            topRated: <FaTrophy className="section-icon" />,
+            upcoming: <FaClock className="section-icon" />,
+            trending: <FaBolt className="section-icon" />
         };
         return iconMap[sectionKey] || null;
     };
@@ -110,8 +110,8 @@ const Movies = () => {
                             <div className="movies-card-info">
                                 <h4>{movie.title || 'Untitled'}</h4>
                                 <span className="movies-rating">
-                  <FaStar /> {typeof movie.vote_average === 'number' ? movie.vote_average.toFixed(1) : '—'}
-                </span>
+                                    <FaStar /> {typeof movie.vote_average === 'number' ? movie.vote_average.toFixed(1) : '—'}
+                                </span>
                             </div>
                         </div>
                     ))}

@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
 import { FaHome, FaFilm, FaTv, FaBookmark, FaStar, FaSearch, FaLightbulb } from 'react-icons/fa';
-import './App.css';
+import './styles/index.css';
 
 const FALLBACK_POSTER = '/no-image.png';
 
@@ -25,7 +25,7 @@ const Recommendation = () => {
 
     const videoRef = useRef(null);
     useEffect(() => {
-        videoRef.current?.play?.().catch(() => {});
+        videoRef.current?.play?.().catch(() => { });
     }, []);
 
     useEffect(() => {
@@ -194,8 +194,8 @@ const Recommendation = () => {
                                         loading="lazy"
                                     />
                                     <span className="movies-rating" style={{ position: 'absolute', top: 10, left: 10 }}>
-                    <FaStar /> {rating}
-                  </span>
+                                        <FaStar /> {rating}
+                                    </span>
                                 </div>
                                 <div className="movies-card-info">
                                     <h4>{title}</h4>
