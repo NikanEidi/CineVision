@@ -152,6 +152,45 @@ sequenceDiagram
 
 ---
 
+<h2 id="keeping-the-backend-awake"><img src="https://api.iconify.design/lucide:zap.svg?color=%238b5cf6&width=24" width="24" /> &nbsp;Keeping the Backend Awake</h2>
+
+The backend runs on Render's free tier, which **spins the service down after ~15 minutes of inactivity**. The first request after idle then pays a **cold start** — measured **~67s cold vs. ~0.15s warm**. Two lightweight mechanisms keep recommendations snappy:
+
+- **Warm-up ping** — the frontend fires `GET /healthz` on app load ([`App.jsx`](frontend/src/App.jsx)), so the backend starts waking while the user browses and signs in, instead of blocking their first `POST /recommend`.
+- **Keep-alive** — an external uptime monitor pings `/healthz` every ~10 minutes so the service never sleeps, keeping even a first-time visitor's request fast.
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant A as Frontend (App.jsx)
+    participant C as Uptime monitor
+    participant B as Backend (Render free)
+
+    Note over C,B: Keep-alive — ping every ~10 min prevents spin-down
+    loop every ~10 minutes
+        C->>B: GET /healthz
+        B-->>C: 200 ok
+    end
+
+    U->>A: Open the app
+    A->>B: GET /healthz (warm-up on load)
+    Note over B: cold start begins early, overlaps with browsing
+    B-->>A: 200 ok
+    U->>A: Add to watchlist / open Recommendations
+    A->>B: POST /recommend
+    B-->>A: ~150 ms - already warm
+```
+
+**Set up the keep-alive** (free, ~2 minutes):
+
+1. Create a free account at [cron-job.org](https://cron-job.org) (or [UptimeRobot](https://uptimerobot.com)).
+2. Add a cronjob → URL `https://cinevision.onrender.com/healthz`, method `GET`, schedule every **10 minutes** (`*/10 * * * *`).
+3. Save &amp; enable.
+
+> Render's free web service allows ~750 instance-hours/month — enough to keep one backend awake 24/7 (~720h). The frontend is a static site and doesn't count against that.
+
+---
+
 <h2 id="tech-stack"><img src="https://api.iconify.design/lucide:layers.svg?color=%238b5cf6&width=24" width="24" /> &nbsp;Tech Stack</h2>
 
 <div align="center">
