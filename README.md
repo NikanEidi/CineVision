@@ -20,6 +20,7 @@
 
 ### 🔐 Authentication & User Management
 - Secure sign-up/sign-in with **Supabase Auth**
+- **Sign in as Guest** (anonymous auth) — try the app with no account
 - Password reset flow with email verification
 - Persistent user sessions
 
@@ -40,7 +41,7 @@
 - Smooth animations and micro-interactions
 - Fully responsive (mobile → desktop)
 - Dark theme with purple/cyan accents
-- Coverflow search with keyboard navigation
+- Coverflow search with drag, scroll, and keyboard navigation
 
 ---
 
@@ -156,6 +157,8 @@ Start the dev server:
 ```bash
 npm run dev
 ```
+
+> To use the **Sign in as Guest** button, enable **Anonymous sign-ins** in your Supabase project under Authentication → Providers.
 
 ### 3. Backend Setup
 ```bash
