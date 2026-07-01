@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Animations.css";
 import { FaVolumeMute, FaVolumeUp } from "react-icons/fa"; // npm install react-icons
 
 const Animations = () => {
