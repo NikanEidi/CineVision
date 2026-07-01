@@ -219,7 +219,9 @@ export default function Search() {
             if (off < -N / 2) off += N;
             if (Math.abs(off) <= ARC_SPAN) arr.push({ item: results[i], index: i, off });
         }
-        return arr.sort((a, b) => Math.abs(b.off) - Math.abs(a.off));
+        // Ascending offset so DOM/flex order matches the visual arc left-to-right;
+        // z-index for stacking is handled per data-position in CSS.
+        return arr.sort((a, b) => a.off - b.off);
     }, [results, active]);
 
     const toDetail = (item) => {
@@ -366,24 +368,24 @@ export default function Search() {
                                                     <FaStar /> {item.vote_average ? item.vote_average.toFixed(1) : '—'}
                                                 </span>
                                             </div>
-                                        </div>
-
-                                        {isFocus && (
-                                            <>
+                                            {isFocus && (
                                                 <button
                                                     className="cvsearch__cta"
                                                     onClick={(e) => { e.stopPropagation(); toDetail(item); }}
                                                 >
                                                     View details
                                                 </button>
-                                                <button
-                                                    className={`cvsearch__favorite ${isFavorite ? 'is-favorite' : ''}`}
-                                                    onClick={(e) => { e.stopPropagation(); toggleFavorite(item); }}
-                                                    aria-label="Toggle favorite"
-                                                >
-                                                    <FaHeart />
-                                                </button>
-                                            </>
+                                            )}
+                                        </div>
+
+                                        {isFocus && (
+                                            <button
+                                                className={`cvsearch__favorite ${isFavorite ? 'is-favorite' : ''}`}
+                                                onClick={(e) => { e.stopPropagation(); toggleFavorite(item); }}
+                                                aria-label="Toggle favorite"
+                                            >
+                                                <FaHeart />
+                                            </button>
                                         )}
                                     </div>
                                 </div>

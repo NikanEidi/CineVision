@@ -359,10 +359,8 @@
 
 /* Focus-only actions */
 .cvsearch__cta {
-    position: absolute;
-    left: var(--space-5);
-    right: var(--space-5);
-    bottom: var(--space-16);
+    margin-top: var(--space-4);
+    width: 100%;
     padding: var(--space-3);
     background: var(--gradient-primary);
     border: none;
@@ -372,6 +370,7 @@
     cursor: pointer;
     box-shadow: var(--glow-primary);
     transition: var(--transition-normal);
+    pointer-events: auto;
 }
 
 .cvsearch__cta:hover {
