@@ -1,9 +1,8 @@
-// Recommendation.jsx
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
-import { FaHome, FaFilm, FaTv, FaBookmark, FaStar, FaSearch, FaLightbulb } from 'react-icons/fa';
-import './styles/index.css';
+import { FaStar } from 'react-icons/fa';
+import Sidebar from './components/Sidebar';
 
 const FALLBACK_POSTER = '/no-image.png';
 
@@ -224,31 +223,7 @@ const Recommendation = () => {
             </video>
             <div className="auth-overlay" />
             <div className="dashboard-container auth-content">
-                <aside className="sidebar">
-                    <div className="logo">
-                        <span className="logo-text">CineVision</span>
-                    </div>
-                    <ul className="menu">
-                        <li onClick={() => navigate('/dashboard')}>
-                            <FaHome className="menu-icon" /> <span className="menu-text">Home</span>
-                        </li>
-                        <li onClick={() => navigate('/movies')}>
-                            <FaFilm className="menu-icon" /> <span className="menu-text">Movies</span>
-                        </li>
-                        <li onClick={() => navigate('/shows')}>
-                            <FaTv className="menu-icon" /> <span className="menu-text">Shows</span>
-                        </li>
-                        <li onClick={() => navigate('/search')}>
-                            <FaSearch className="menu-icon" /> <span className="menu-text">Search</span>
-                        </li>
-                        <li className="active" onClick={() => navigate('/recommendation')}>
-                            <FaLightbulb className="menu-icon" /> <span className="menu-text">Recommend</span>
-                        </li>
-                        <li onClick={() => navigate('/watchlist')}>
-                            <FaBookmark className="menu-icon" /> <span className="menu-text">Watchlist</span>
-                        </li>
-                    </ul>
-                </aside>
+                <Sidebar active="recommendation" />
 
                 <main className="movies-main">
                     <div className="movies-content">

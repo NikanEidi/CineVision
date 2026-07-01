@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { supabase } from './supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { FaLock, FaLockOpen, FaEye, FaEyeSlash } from 'react-icons/fa';
-import './styles/index.css';
 
 function UpdatePassword() {
     const [password, setPassword] = useState('');

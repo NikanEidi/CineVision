@@ -31,17 +31,21 @@
 - View by genre, rating, or media type
 
 ### 🤖 AI-Powered Recommendations
-- **Content-based filtering** using TF-IDF vectorization
-- Cosine similarity matching across 10,000+ titles
-- Learns from your watchlist preferences
-- Real-time updates when you add new content
+- **Content-based filtering** — TF-IDF vectorization (1–2 word n-grams) over a catalog seeded from TMDB's most popular movies & shows
+- **Cosine similarity** matching on a combined signal of title, overview, genres, keywords, cast, and directors/creators
+- Watchlist seeds are **weighted by rating**, so higher-rated favorites influence results more
+- Learns from your watchlist preferences and updates as you add new content
+- Model artifacts (catalog, vectorizer, matrix) are **cached to disk** and rebuildable on demand
 
 ### 🎨 Modern UI/UX Design
-- **Liquid Glass (Glassmorphism)** design system
+- **Liquid Glass (Glassmorphism)** design system driven by a single design-token layer
+- **Unified navigation** — one shared `Sidebar` component keeps the nav bar identical on every page and collapses to a bottom bar on mobile
+- Consistent media-card frame reused across Home, Movies, Shows, Watchlist, and Recommendations
+- Cinematic landing screen with full-bleed video and glass call-to-action buttons
 - Smooth animations and micro-interactions
 - Fully responsive (mobile → desktop)
 - Dark theme with purple/cyan accents
-- Coverflow search with drag, scroll, and keyboard navigation
+- Coverflow search whose blurred backdrop tracks the focused result, with drag, scroll, and keyboard navigation
 
 ---
 
@@ -92,13 +96,17 @@ CineVision/
 │   ├── public/              # Static assets (videos, images, SVGs)
 │   ├── src/
 │   │   ├── styles/          # Modular CSS system
-│   │   │   ├── design-system.css   # Variables, utilities, animations
-│   │   │   ├── components.css      # Reusable component styles
-│   │   │   ├── layouts.css         # Page layout structures
-│   │   │   ├── search.css          # Search page specific
-│   │   │   ├── responsive.css      # All breakpoints
-│   │   │   └── index.css           # Main entry point
-│   │   ├── App.jsx          # Router & main app
+│   │   │   ├── design-system.css   # Tokens, resets, utilities, animations
+│   │   │   ├── components.css      # Reusable component styles (sidebar, cards…)
+│   │   │   ├── layouts.css         # Page layouts (auth, dashboard, detail, intro)
+│   │   │   ├── search.css          # Coverflow search page
+│   │   │   ├── responsive.css      # All breakpoints (imported last)
+│   │   │   └── index.css           # CSS entry point (@imports the above)
+│   │   ├── components/
+│   │   │   └── Sidebar.jsx  # Shared navigation used by every page
+│   │   ├── main.jsx         # App entry — mounts React & loads global styles
+│   │   ├── App.jsx          # Router & route definitions
+│   │   ├── Animations.jsx   # Cinematic landing / intro screen
 │   │   ├── DashBoard.jsx    # Home page
 │   │   ├── Movies.jsx       # Movies browse
 │   │   ├── Shows.jsx        # TV shows browse
@@ -108,6 +116,9 @@ CineVision/
 │   │   ├── Recommendation.jsx # AI recommendations
 │   │   ├── Login.jsx        # Sign in
 │   │   ├── Signup.jsx       # Register
+│   │   ├── ForgotPassword.jsx # Request password reset
+│   │   ├── UpdatePassword.jsx  # Set a new password
+│   │   ├── Footer.jsx       # Global footer
 │   │   └── supabaseClient.js # Supabase config
 │   ├── .env.example         # Environment template
 │   └── package.json
@@ -229,8 +240,9 @@ The CSS follows a modular architecture:
   --color-accent-cyan: #00E5FF;
   
   /* Typography */
-  --font-display: 'Orbitron', sans-serif;
-  --font-heading: 'Outfit', sans-serif;
+  --font-display: 'Orbitron', 'Outfit', sans-serif;
+  --font-heading: 'Oxanium', 'Outfit', sans-serif;
+  --font-body: 'Inter', 'Outfit', system-ui, sans-serif;
 }
 ```
 
@@ -247,6 +259,16 @@ The CSS follows a modular architecture:
 | Tablet LG | 1024-1199px | Side nav returns |
 | Desktop | 1200-1599px | Full layout |
 | Desktop XL | 1600px+ | Maximum content width |
+
+---
+
+## 🔖 Changelog
+
+### v1.1
+- **Unified navigation** — extracted a single shared `Sidebar` component; every page now renders an identical nav bar (and a correct mobile bottom bar).
+- **Restored landing screen** — re-added the missing intro styles so the video hero, glass sound toggle, and Sign In / Sign Up buttons render and are fully responsive.
+- **Search backdrop** — the coverflow's blurred background now tracks the focused result with a smooth crossfade, over a neutral dark base; tightened the page's vertical spacing.
+- **Cleaner styling pipeline** — global styles are imported once from `main.jsx` instead of per page, and changelog-style comments were removed across the codebase.
 
 ---
 

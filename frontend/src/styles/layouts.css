@@ -1056,3 +1056,163 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* =============================================================================
+   INTRO / LANDING - Full-bleed video hero with glass call-to-action
+   ============================================================================= */
+
+.intro-container {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: var(--space-16) var(--content-padding) clamp(3rem, 10vh, 6rem);
+}
+
+.intro-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    filter: saturate(1.1) brightness(0.85);
+}
+
+/* Cinematic gradient so the buttons stay legible over any frame */
+.intro-container::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        linear-gradient(180deg, rgba(10, 10, 15, 0.55) 0%, transparent 30%, rgba(10, 10, 15, 0.75) 100%),
+        radial-gradient(ellipse at 50% 60%, transparent 0%, rgba(10, 10, 15, 0.45) 100%);
+}
+
+/* Mute / unmute control, pinned top-right */
+.glass-sound-toggle {
+    position: fixed;
+    top: var(--space-6);
+    right: var(--space-6);
+    z-index: var(--z-sticky);
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-full);
+    color: var(--text-primary);
+    font-size: var(--text-lg);
+    cursor: pointer;
+
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border-light);
+    backdrop-filter: var(--blur-md) saturate(140%);
+    -webkit-backdrop-filter: var(--blur-md) saturate(140%);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition-normal);
+}
+
+.glass-sound-toggle:hover {
+    background: var(--glass-primary-light);
+    border-color: var(--glass-border-accent);
+    color: var(--color-accent-cyan);
+    transform: scale(1.08);
+    box-shadow: var(--shadow-xl), var(--glow-cyan);
+}
+
+.glass-sound-toggle:active {
+    transform: scale(0.96);
+}
+
+/* Sign In / Sign Up cluster */
+.intro-buttons {
+    position: relative;
+    z-index: var(--z-base);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    justify-content: center;
+    animation: fadeUp var(--duration-slower) var(--ease-smooth) both;
+}
+
+.glass-button {
+    min-width: 168px;
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-full);
+    font-family: var(--font-heading);
+    font-size: var(--text-md);
+    font-weight: var(--font-semibold);
+    letter-spacing: 0.3px;
+    color: var(--text-primary);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border-light);
+    backdrop-filter: var(--blur-md) saturate(140%);
+    -webkit-backdrop-filter: var(--blur-md) saturate(140%);
+    box-shadow: var(--shadow-lg), var(--inset-subtle);
+    transition: var(--transition-normal);
+}
+
+/* Shine sweep on hover */
+.glass-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+    transition: left 0.6s var(--ease-smooth);
+}
+
+.glass-button:hover::before {
+    left: 100%;
+}
+
+.glass-button:hover {
+    transform: translateY(-3px);
+    border-color: var(--glass-border-accent);
+    box-shadow: var(--shadow-xl), var(--glow-primary);
+}
+
+.glass-button:active {
+    transform: translateY(-1px) scale(0.99);
+}
+
+/* Primary emphasis for the first (Sign In) action */
+.intro-buttons .glass-button:first-child {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    box-shadow: var(--glow-primary);
+}
+
+.intro-buttons .glass-button:first-child:hover {
+    box-shadow: var(--glow-primary-intense);
+}
+
+@media (max-width: 480px) {
+    .intro-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .glass-button {
+        width: 100%;
+    }
+
+    .glass-sound-toggle {
+        top: var(--space-4);
+        right: var(--space-4);
+        width: 46px;
+        height: 46px;
+    }
+}

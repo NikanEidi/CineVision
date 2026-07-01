@@ -1,8 +1,6 @@
-// Login.jsx
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
-import './styles/index.css';
 
 import {
     FaEnvelope,

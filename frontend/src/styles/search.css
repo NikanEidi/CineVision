@@ -15,19 +15,35 @@
     --card-gap: 0px;
 
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     position: relative;
     overflow-x: hidden;
     color: var(--text-primary);
 
-    /* Background gradients */
-    background:
-        radial-gradient(ellipse 1400px 1000px at 70% -20%, rgba(95, 9, 158, 0.25), transparent),
-        radial-gradient(ellipse 1200px 800px at 10% 110%, rgba(0, 229, 255, 0.18), transparent),
-        radial-gradient(ellipse 800px 600px at 90% 80%, rgba(255, 0, 255, 0.08), transparent),
-        var(--bg-primary);
+    /* Neutral dark base. The actual colour behind the coverflow comes from the
+       focused card's blurred artwork (.cvsearch__bg); this only shows through
+       where a card has no image or during the initial fade-in. */
+    background: var(--bg-primary);
 }
 
-/* Full-page blurred backdrop behind the coverflow, crossfades via opacity */
+/* Dark gradient overlay above the blurred artwork but below the content, so
+   the coverflow cards and text stay legible over any backdrop. */
+.cvsearch::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg,
+            rgba(10, 10, 15, 0.25) 0%,
+            rgba(10, 10, 15, 0.45) 55%,
+            rgba(10, 10, 15, 0.8) 100%);
+}
+
+/* One crossfade layer of the full-page blurred backdrop. Opacity is animated
+   by framer-motion (two stacked layers cross-fade on change), so no CSS
+   opacity transition here. */
 .cvsearch__bg {
     position: fixed;
     inset: 0;
@@ -35,7 +51,6 @@
     background-position: center;
     filter: blur(60px) saturate(120%) brightness(0.6);
     transform: scale(1.15);
-    transition: opacity 0.6s var(--ease-smooth);
     z-index: 0;
     pointer-events: none;
 }
@@ -199,14 +214,27 @@
    COVERFLOW STAGE
    ============================================================================= */
 
+/* Fills the space between the header and the bottom of the viewport, centring
+   the coverflow + Load more so the page has no large empty gap. */
+.cvsearch__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
 .cvsearch__stage {
     position: relative;
-    height: clamp(480px, 65vh, 700px);
+    width: 100%;
+    /* Hug the focused card (~360px) plus room for the fan and its glow, rather
+       than stretching to the viewport and leaving dead space above Load more. */
+    height: clamp(420px, 48vh, 520px);
     display: flex;
     justify-content: center;
     align-items: center;
     perspective: var(--perspective);
-    margin-top: var(--space-4);
     z-index: 1;
     touch-action: pan-y;
     cursor: grab;

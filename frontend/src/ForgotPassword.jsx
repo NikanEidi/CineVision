@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import { Link } from 'react-router-dom';
-import './styles/index.css';
 
 function ForgotPassword() {
     const [email, setEmail] = useState('');

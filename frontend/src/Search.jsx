@@ -1,4 +1,3 @@
-// src/Search.jsx
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
@@ -7,7 +6,6 @@ import {
     FaSearch, FaTimes, FaArrowLeft, FaChevronLeft, FaChevronRight, FaStar, FaHeart,
     FaHome, FaFilm, FaTv, FaBookmark, FaLightbulb,
 } from 'react-icons/fa';
-import './styles/index.css';
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const FALLBACK_POSTER =
@@ -235,15 +233,26 @@ export default function Search() {
 
     return (
         <motion.div className="cvsearch" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            {/* Full-page blurred background, crossfades with the focused card */}
-            <div
-                className="cvsearch__bg"
-                aria-hidden
-                style={{
-                    backgroundImage: bgUrl ? `url(${bgUrl})` : 'none',
-                    opacity: bgUrl ? 0.9 : 0,
-                }}
-            />
+            {/* Full-page blurred backdrop of the focused card. Two stacked
+                layers keyed on the image URL let the previous backdrop fade out
+                while the new one fades in — a true crossfade rather than an
+                instant image swap. A neutral dark base shows through if a card
+                has no artwork. */}
+            <div className="cvsearch__bgLayers" aria-hidden>
+                <AnimatePresence>
+                    {bgUrl && (
+                        <motion.div
+                            key={bgUrl}
+                            className="cvsearch__bg"
+                            style={{ backgroundImage: `url(${bgUrl})` }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.9 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.4, ease: 'easeInOut' }}
+                        />
+                    )}
+                </AnimatePresence>
+            </div>
 
             {/* Header with Back → Dashboard, Navigation Buttons, and Search */}
             <header className="cvsearch__header">
@@ -304,8 +313,11 @@ export default function Search() {
                 </form>
             </header>
 
-            {/* Empty / error states */}
-            <AnimatePresence>
+            {/* Results region: grows to fill the viewport below the header and
+                centres the coverflow + Load more so there's no dead space. */}
+            <main className="cvsearch__content">
+                {/* Empty / error states */}
+                <AnimatePresence>
                 {!loading && !results.length && !error && (
                     <motion.div
                         className="cvsearch__empty"
@@ -415,6 +427,7 @@ export default function Search() {
                     {loading ? 'Loading…' : 'Load more'}
                 </button>
             )}
+            </main>
         </motion.div>
     );
 }

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaVolumeMute, FaVolumeUp } from "react-icons/fa"; // npm install react-icons
-
+import { FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 const Animations = () => {
     const navigate = useNavigate();
     const videoRef = useRef(null);

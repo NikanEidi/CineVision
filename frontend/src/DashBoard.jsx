@@ -2,8 +2,8 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { supabase } from './supabaseClient';
-import './styles/index.css';
-import { FaHome, FaFilm, FaTv, FaBookmark, FaSearch, FaStar, FaLightbulb } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa';
+import Sidebar from './components/Sidebar';
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const FALLBACK_POSTER = '/no-image.png';
@@ -171,19 +171,7 @@ export default function DashBoard() {
             <div className="auth-overlay" />
 
             <div className="dashboard-container auth-content">
-                <aside className="sidebar">
-                    <div className="logo">
-                        <span className="logo-text">CineVision</span>
-                    </div>
-                    <ul className="menu">
-                        <li className="active"><FaHome /> Home</li>
-                        <li onClick={() => navigate('/movies')}><FaFilm /> Movies</li>
-                        <li onClick={() => navigate('/shows')}><FaTv /> Shows</li>
-                        <li onClick={() => navigate('/search')}><FaSearch /> Search</li>
-                        <li onClick={() => navigate('/recommendation')}><FaLightbulb /> Recommend</li>
-                        <li onClick={() => navigate('/watchlist')}><FaBookmark /> Watchlist</li>
-                    </ul>
-                </aside>
+                <Sidebar active="home" />
 
                 <main className="movies-main">
                     <div className="movies-content">

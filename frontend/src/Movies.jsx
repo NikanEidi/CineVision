@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {
-    FaHome, FaFilm, FaTv, FaBookmark, FaStar, FaFire, FaPlay, FaTrophy, FaClock, FaBolt, FaSearch, FaLightbulb
-} from 'react-icons/fa';
-import './styles/index.css';
+import { FaStar, FaFire, FaPlay, FaTrophy, FaClock, FaBolt } from 'react-icons/fa';
+import Sidebar from './components/Sidebar';
 
 const FALLBACK_POSTER = '/no-image.png';
 
@@ -114,7 +112,6 @@ const Movies = () => {
 
     return (
         <div className="auth-bg">
-            {/* Background video */}
             <video
                 ref={videoRef}
                 className="auth-video"
@@ -130,37 +127,8 @@ const Movies = () => {
             <div className="auth-overlay" />
 
             <div className="dashboard-container auth-content">
-                {/* Sidebar (unchanged classes; just adds Recommendation) */}
-                <aside className="sidebar">
-                    <div className="logo">
-                        <span className="logo-text">CineVision</span>
-                    </div>
-                    <ul className="menu">
-                        <li onClick={() => navigate('/dashboard')}>
-                            <FaHome className="menu-icon" /> <span className="menu-text">Home</span>
-                        </li>
-                        <li className="active">
-                            <FaFilm className="menu-icon" /> <span className="menu-text">Movies</span>
-                        </li>
-                        <li onClick={() => navigate('/shows')}>
-                            <FaTv className="menu-icon" /> <span className="menu-text">Shows</span>
-                        </li>
-                        <li onClick={() => navigate('/search')}>
-                            <FaSearch className="menu-icon" /> <span className="menu-text">Search</span>
-                        </li>
+                <Sidebar active="movies" />
 
-                        {/* New: Recommendation link */}
-                        <li onClick={() => navigate('/recommendation')}>
-                            <FaLightbulb className="menu-icon" /> <span className="menu-text">Recommend</span>
-                        </li>
-
-                        <li onClick={() => navigate('/watchlist')}>
-                            <FaBookmark className="menu-icon" /> <span className="menu-text">Watchlist</span>
-                        </li>
-                    </ul>
-                </aside>
-
-                {/* Main content */}
                 <main className="movies-main">
                     <div className="movies-content">
                         <header className="movies-header">

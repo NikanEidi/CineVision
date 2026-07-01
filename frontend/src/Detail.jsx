@@ -1,4 +1,3 @@
-// src/Detail.jsx
 import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from './supabaseClient';
@@ -10,7 +9,6 @@ import {
     FaVolumeUp, FaVolumeMute, FaChevronLeft, FaChevronRight,
     FaLayerGroup, FaSync
 } from 'react-icons/fa';
-import './styles/index.css';
 
 const FALLBACK_POSTER = 'https://via.placeholder.com/300x450?text=No+Image';
 const FALLBACK_STILL = 'https://via.placeholder.com/320x180?text=No+Still';

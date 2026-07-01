@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from './supabaseClient';
-import './styles/index.css';
 import { FaUser, FaEnvelope, FaLock, FaLockOpen, FaEye, FaEyeSlash, FaGoogle, FaApple } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 
