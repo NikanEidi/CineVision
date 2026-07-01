@@ -224,6 +224,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    width: var(--card-width-lg);
+    flex-shrink: 0;
     background: var(--glass-bg-subtle);
     border: 1px solid var(--glass-border-subtle);
     border-radius: var(--radius-xl);
