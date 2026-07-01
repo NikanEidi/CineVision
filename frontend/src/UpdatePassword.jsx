@@ -5,7 +5,6 @@ import { FaLock, FaLockOpen, FaEye, FaEyeSlash } from 'react-icons/fa';
 import './styles/index.css';
 
 function UpdatePassword() {
-    // Two fields + a bit of UI niceties
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +31,6 @@ function UpdatePassword() {
             return;
         }
         if (password.length < 8) {
-            // Keep one baseline constraint here for safety; your choice to align with signup rules
             setError('Password must be at least 8 characters.');
             return;
         }
@@ -43,7 +41,6 @@ function UpdatePassword() {
             if (updateError) throw updateError;
 
             setMessage('Your password has been updated.');
-            // Give the user a short beat to read the message, then go to login
             setTimeout(() => navigate('/login'), 1000);
         } catch (err) {
             console.error('Update password error:', err);

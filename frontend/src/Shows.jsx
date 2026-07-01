@@ -1,24 +1,19 @@
-// Shows.jsx
-// Short, humanized comments; keeps classes/structure intact.
-// Adds "Recommendation" to the sidebar.
-
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
     FaHome, FaFilm, FaTv, FaBookmark, FaStar,
-    FaFire, FaPlay, FaTrophy, FaClock, FaBolt, FaSearch, FaLightbulb // +FaLightbulb
+    FaFire, FaPlay, FaTrophy, FaClock, FaBolt, FaSearch, FaLightbulb
 } from 'react-icons/fa';
 import './styles/index.css';
 
-// Fallback poster if TMDB image is missing
-const FALLBACK_POSTER = '/no-image.png'; // keep this file in /public
+// Served from /public; falls back when a title has no TMDB poster.
+const FALLBACK_POSTER = '/no-image.png';
 
 const Shows = () => {
     const navigate = useNavigate();
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-    // TV buckets for rows
     const [popular, setPopular] = useState([]);
     const [airingToday, setAiringToday] = useState([]);
     const [topRated, setTopRated] = useState([]);
@@ -26,13 +21,11 @@ const Shows = () => {
     const [trending, setTrending] = useState([]);
     const [error, setError] = useState('');
 
-    // Try to autoplay background
     const videoRef = useRef(null);
     useEffect(() => {
         videoRef.current?.play?.().catch(() => { });
     }, []);
 
-    // Fetch all sections together
     useEffect(() => {
         const fetchShows = async () => {
             try {
@@ -69,7 +62,6 @@ const Shows = () => {
         fetchShows();
     }, [API_KEY]);
 
-    // Icon map for headers
     const getSectionIcon = (sectionKey) => {
         const iconMap = {
             popular: <FaFire className="section-icon" />,
@@ -81,7 +73,7 @@ const Shows = () => {
         return iconMap[sectionKey] || null;
     };
 
-    // Reusable row renderer (uses Movies page classes)
+    // Shares Movies.jsx's card classes for a consistent grid across pages.
     const renderSection = (title, items, sectionKey) => (
         <section className="movies-section">
             <div className="movies-section-header">

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import './styles/index.css';
 
 function ForgotPassword() {
-    // Keeping it dead simple: one field + one message
     const [email, setEmail] = useState('');
     const [isSending, setIsSending] = useState(false);
     const [message, setMessage] = useState('');
@@ -33,7 +32,7 @@ function ForgotPassword() {
             setMessage('If an account exists for this email, a reset link has been sent.');
         } catch (err) {
             console.error('Reset email error:', err);
-            // Don't leak too much info; keep it friendly and generic
+            // Generic message to avoid revealing whether the email is registered.
             setError('Could not send reset email. Please try again later.');
         } finally {
             setIsSending(false);
