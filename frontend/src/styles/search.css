@@ -1,7 +1,9 @@
 /*******************************************************************************
- * CineVision Search - Enhanced Search Page Styles
+ * CineVision Search - Coverflow Search Page Styles
  *
- * Scrollable results grid (same card pattern as Movies/Shows), liquid glass design.
+ * Arc-style card stack (5 slots: data-position -2..2), smooth crossfading
+ * background, liquid glass design. Navigate with drag, wheel, arrow keys,
+ * or the prev/next buttons.
  ******************************************************************************/
 
 /* =============================================================================
@@ -9,6 +11,9 @@
    ============================================================================= */
 
 .cvsearch {
+    --perspective: 1600px;
+    --card-gap: 2.5rem;
+
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
@@ -20,6 +25,19 @@
         radial-gradient(ellipse 1200px 800px at 10% 110%, rgba(0, 229, 255, 0.18), transparent),
         radial-gradient(ellipse 800px 600px at 90% 80%, rgba(255, 0, 255, 0.08), transparent),
         var(--bg-primary);
+}
+
+/* Full-page blurred backdrop behind the coverflow, crossfades via opacity */
+.cvsearch__bg {
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: blur(60px) saturate(120%) brightness(0.6);
+    transform: scale(1.15);
+    transition: opacity 0.6s var(--ease-smooth);
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* =============================================================================
@@ -108,13 +126,6 @@
     color: var(--color-accent-cyan);
 }
 
-.cvsearch__nav-btn.active {
-    background: var(--gradient-primary);
-    border-color: transparent;
-    color: var(--text-primary);
-    box-shadow: var(--glow-primary);
-}
-
 /* Search Form */
 .cvsearch__form {
     position: relative;
@@ -176,7 +187,6 @@
     border-radius: var(--radius-full);
     color: var(--text-muted);
     cursor: pointer;
-    opacity: 1;
     transition: var(--transition-normal);
 }
 
@@ -186,15 +196,189 @@
 }
 
 /* =============================================================================
-   RESULTS GRID (scrollable cards, same pattern as Movies/Shows)
+   COVERFLOW STAGE
    ============================================================================= */
 
-.cvsearch__results {
-    margin: var(--space-6) var(--content-padding);
+.cvsearch__stage {
+    position: relative;
+    height: clamp(480px, 65vh, 700px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: var(--perspective);
+    margin-top: var(--space-4);
+    z-index: 1;
+    touch-action: pan-y;
+    cursor: grab;
 }
 
-/* Poster-only rating badge already comes from .movies-rating; add the
-   favorite heart as a second overlay button, top-right of the card. */
+.cvsearch__stage:active {
+    cursor: grabbing;
+}
+
+/* Card track: items are in-flow flex children, positioned into the arc via
+   transform only, so layout size never depends on image load state. */
+.cvsearch__track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--card-gap);
+}
+
+/* =============================================================================
+   COVERFLOW CARDS
+   ============================================================================= */
+
+.cvsearch__posterWrap {
+    width: clamp(240px, 28vw, 340px);
+    aspect-ratio: 2/3;
+    position: relative;
+    flex-shrink: 0;
+    transform-style: preserve-3d;
+    transition: transform 0.5s var(--ease-smooth), opacity 0.5s var(--ease-smooth), filter 0.5s var(--ease-smooth);
+    cursor: pointer;
+}
+
+/* Card states based on arc position */
+.cvsearch__posterWrap[data-position="-2"] {
+    transform: translateX(60%) rotateY(45deg) scale(0.65);
+    opacity: 0.3;
+    z-index: 1;
+    filter: blur(3px);
+}
+
+.cvsearch__posterWrap[data-position="-1"] {
+    transform: translateX(30%) rotateY(35deg) scale(0.8);
+    opacity: 0.6;
+    z-index: 2;
+    filter: blur(1px);
+}
+
+.cvsearch__posterWrap[data-position="0"] {
+    transform: translateX(0) rotateY(0deg) scale(1);
+    opacity: 1;
+    z-index: 5;
+    filter: blur(0);
+}
+
+.cvsearch__posterWrap[data-position="1"] {
+    transform: translateX(-30%) rotateY(-35deg) scale(0.8);
+    opacity: 0.6;
+    z-index: 2;
+    filter: blur(1px);
+}
+
+.cvsearch__posterWrap[data-position="2"] {
+    transform: translateX(-60%) rotateY(-45deg) scale(0.65);
+    opacity: 0.3;
+    z-index: 1;
+    filter: blur(3px);
+}
+
+/* Card inner */
+.cvsearch__card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+
+    /* Liquid glass card */
+    background: var(--glass-bg-medium);
+    border: 1px solid var(--glass-border-light);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition-normal);
+}
+
+.cvsearch__posterWrap[data-position="0"] .cvsearch__card {
+    border-color: var(--glass-border-accent);
+    box-shadow: var(--shadow-2xl), var(--glow-card-hover);
+}
+
+/* Card image */
+.cvsearch__poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-slow);
+    -webkit-user-drag: none;
+}
+
+/* Card overlay (title + meta) */
+.cvsearch__cardOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg,
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0.5) 40%,
+            transparent 65%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: var(--space-5);
+    opacity: 0;
+    transition: var(--transition-normal);
+    pointer-events: none;
+}
+
+.cvsearch__posterWrap[data-position="0"] .cvsearch__cardOverlay {
+    opacity: 1;
+}
+
+.cvsearch__cardTitle {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--space-2);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cvsearch__cardMeta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+}
+
+.cvsearch__cardRating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--color-accent-cyan);
+    font-weight: var(--font-semibold);
+}
+
+.cvsearch__cardRating svg {
+    color: var(--color-accent-gold);
+}
+
+/* Focus-only actions */
+.cvsearch__cta {
+    position: absolute;
+    left: var(--space-5);
+    right: var(--space-5);
+    bottom: var(--space-16);
+    padding: var(--space-3);
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    font-weight: var(--font-semibold);
+    cursor: pointer;
+    box-shadow: var(--glow-primary);
+    transition: var(--transition-normal);
+}
+
+.cvsearch__cta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-primary-intense);
+}
+
 .cvsearch__favorite {
     position: absolute;
     top: var(--space-3);
@@ -202,21 +386,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: var(--blur-sm);
     border: 1px solid var(--glass-border-subtle);
     border-radius: var(--radius-full);
     color: var(--text-primary);
     cursor: pointer;
-    opacity: 0;
     transition: var(--transition-normal);
-}
-
-.movies-card:hover .cvsearch__favorite,
-.cvsearch__favorite.is-favorite {
-    opacity: 1;
 }
 
 .cvsearch__favorite.is-favorite {
@@ -228,14 +406,59 @@
     background: rgba(0, 0, 0, 0.8);
 }
 
-.cvsearch__chip {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
+/* =============================================================================
+   NAVIGATION ARROWS
+   ============================================================================= */
+
+.cvsearch__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+
+    /* Liquid glass button */
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border-light);
+    border-radius: var(--radius-full);
+    backdrop-filter: var(--blur-md);
+    color: var(--text-secondary);
+    font-size: var(--text-xl);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    box-shadow: var(--shadow-lg);
 }
+
+.cvsearch__nav:hover {
+    background: var(--glass-primary-light);
+    border-color: var(--glass-border-accent);
+    color: var(--color-accent-cyan);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--shadow-xl), var(--glow-cyan);
+}
+
+.cvsearch__nav:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.cvsearch__nav--prev {
+    left: var(--space-6);
+}
+
+.cvsearch__nav--next {
+    right: var(--space-6);
+}
+
+/* =============================================================================
+   LOAD MORE
+   ============================================================================= */
 
 .cvsearch__loadmore {
     display: block;
-    margin: var(--space-6) auto 0;
+    margin: var(--space-2) auto var(--space-8);
     padding: var(--space-3) var(--space-8);
     background: var(--glass-bg-medium);
     border: 1px solid var(--glass-border-light);
@@ -244,6 +467,8 @@
     font-weight: var(--font-medium);
     cursor: pointer;
     transition: var(--transition-normal);
+    position: relative;
+    z-index: 1;
 }
 
 .cvsearch__loadmore:hover:not(:disabled) {
@@ -266,11 +491,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 300px;
+    min-height: 400px;
     text-align: center;
     padding: var(--space-8);
     color: var(--text-secondary);
     font-size: var(--text-lg);
+    position: relative;
+    z-index: 1;
 }
 
 .cvsearch__empty code {
@@ -288,6 +515,8 @@
     border: 1px solid var(--color-accent-pink);
     border-radius: var(--radius-lg);
     color: var(--color-accent-pink);
+    position: relative;
+    z-index: 1;
 }
 
 /* =============================================================================
@@ -320,12 +549,51 @@
         font-size: var(--text-base);
     }
 
-    .cvsearch__results {
-        margin: var(--space-4) var(--space-3);
+    .cvsearch__stage {
+        height: clamp(400px, 55vh, 580px);
+        margin-top: var(--space-2);
+    }
+
+    .cvsearch__posterWrap {
+        width: clamp(200px, 50vw, 280px);
+    }
+
+    .cvsearch__nav {
+        width: 48px;
+        height: 48px;
+        font-size: var(--text-lg);
+    }
+
+    .cvsearch__nav--prev {
+        left: var(--space-3);
+    }
+
+    .cvsearch__nav--next {
+        right: var(--space-3);
+    }
+}
+
+@media (max-width: 600px) {
+    .cvsearch__stage {
+        height: clamp(350px, 50vh, 480px);
+    }
+
+    .cvsearch__posterWrap {
+        width: clamp(180px, 55vw, 240px);
+    }
+
+    .cvsearch__nav {
+        width: 44px;
+        height: 44px;
+        font-size: var(--text-base);
     }
 }
 
 @media (max-width: 480px) {
+    .cvsearch__header {
+        flex-wrap: wrap;
+    }
+
     .cvsearch__nav-btn span {
         display: none;
     }
@@ -333,5 +601,35 @@
     .cvsearch__form {
         width: 100%;
         margin-top: var(--space-2);
+    }
+
+    .cvsearch__stage {
+        height: clamp(320px, 48vh, 420px);
+    }
+
+    .cvsearch__posterWrap {
+        width: clamp(160px, 60vw, 220px);
+    }
+
+    .cvsearch__nav {
+        display: none;
+    }
+
+    /* Swipe hint for mobile, since arrows are hidden */
+    .cvsearch__stage::after {
+        content: 'Swipe to browse';
+        position: absolute;
+        bottom: var(--space-4);
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+        opacity: 0.6;
+    }
+}
+
+@media (max-width: 360px) {
+    .cvsearch__posterWrap {
+        width: clamp(150px, 65vw, 200px);
     }
 }
