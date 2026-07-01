@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import Animations from './Animations.jsx';
@@ -15,9 +16,20 @@ import UpdatePassword from './UpdatePassword.jsx';
 
 import Footer from './Footer';
 
-
+// Backend base URL — same resolution the data pages use.
+const API_BASE =
+    (import.meta.env.VITE_API_BASE && import.meta.env.VITE_API_BASE.replace(/\/+$/, '')) ||
+    (typeof window !== 'undefined' && window.__API_BASE__ && String(window.__API_BASE__).replace(/\/+$/, '')) ||
+    'http://127.0.0.1:5178';
 
 function App() {
+    // Wake the free-tier backend the moment the app loads so it's warm by the
+    // time the user opens recommendations, instead of paying the cold start on
+    // their first request. Fire-and-forget; failures are harmless.
+    useEffect(() => {
+        fetch(`${API_BASE}/healthz`).catch(() => {});
+    }, []);
+
     return (
         <Router>
             <Routes>
