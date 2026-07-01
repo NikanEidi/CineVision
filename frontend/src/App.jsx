@@ -1,8 +1,5 @@
-// App.jsx
-// Import React Router components
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-// Import pages
 import Animations from './Animations.jsx';
 import SignUp from './Signup.jsx';
 import Login from './Login.jsx';
@@ -35,7 +32,7 @@ function App() {
                 <Route path="/forgot" element={<ForgotPassword />} />
                 <Route path="/update-password" element={<UpdatePassword />} />
 
-                {/* Aliases (in case you linked with caps somewhere) */}
+                {/* Case-insensitive route aliases */}
                 <Route path="/Forgot" element={<ForgotPassword />} />
                 <Route path="/Update-Password" element={<UpdatePassword />} />
 

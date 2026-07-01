@@ -1,12 +1,9 @@
-// Movies.jsx
-
-
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
     FaHome, FaFilm, FaTv, FaBookmark, FaStar, FaFire, FaPlay, FaTrophy, FaClock, FaBolt, FaSearch, FaLightbulb
-} from 'react-icons/fa'; // +FaLightbulb for Recommendation
+} from 'react-icons/fa';
 import './styles/index.css';
 
 const FALLBACK_POSTER = '/no-image.png';
@@ -15,7 +12,6 @@ const Movies = () => {
     const navigate = useNavigate();
     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-    // Simple buckets for the rows
     const [popular, setPopular] = useState([]);
     const [nowPlaying, setNowPlaying] = useState([]);
     const [topRated, setTopRated] = useState([]);
@@ -24,12 +20,10 @@ const Movies = () => {
     const [error, setError] = useState('');
     const videoRef = useRef(null);
 
-    // Try to autoplay background
     useEffect(() => {
         videoRef.current?.play?.().catch(() => { });
     }, []);
 
-    // Fetch all sections together
     useEffect(() => {
         const fetchMovies = async () => {
             try {
@@ -66,7 +60,6 @@ const Movies = () => {
         fetchMovies();
     }, [API_KEY]);
 
-    // Map section key -> icon (just for nice headings)
     const getSectionIcon = (sectionKey) => {
         const iconMap = {
             popular: <FaFire className="section-icon" />,
@@ -78,7 +71,6 @@ const Movies = () => {
         return iconMap[sectionKey] || null;
     };
 
-    // Reusable row section (uses Movies page classes)
     const renderSection = (title, items, sectionKey) => (
         <section className="movies-section">
             <div className="movies-section-header">

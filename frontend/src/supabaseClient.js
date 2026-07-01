@@ -1,10 +1,8 @@
-// supabaseClient.js
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Handle missing credentials gracefully for UI development
 let supabase;
 
 if (!supabaseUrl || !supabaseAnonKey) {

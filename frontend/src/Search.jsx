@@ -38,8 +38,8 @@ function useDebounce(value, delay = 400) {
     return debounced;
 }
 
-// The coverflow CSS only defines arc positions -2..2 (5 cards); never render outside that range.
-const ARC_SPAN = 2;
+// The coverflow CSS only defines arc positions -4..4 (9 cards); never render outside that range.
+const ARC_SPAN = 4;
 
 export default function Search() {
     const navigate = useNavigate();

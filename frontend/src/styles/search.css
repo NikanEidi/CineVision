@@ -12,7 +12,7 @@
 
 .cvsearch {
     --perspective: 1600px;
-    --card-gap: 2.5rem;
+    --card-gap: 0px;
 
     min-height: 100vh;
     position: relative;
@@ -230,50 +230,33 @@
    ============================================================================= */
 
 .cvsearch__posterWrap {
-    width: clamp(240px, 28vw, 340px);
+    width: clamp(150px, 15vw, 220px);
     aspect-ratio: 2/3;
     position: relative;
     flex-shrink: 0;
+    margin: 0 -50px;
     transform-style: preserve-3d;
     transition: transform 0.5s var(--ease-smooth), opacity 0.5s var(--ease-smooth), filter 0.5s var(--ease-smooth);
     cursor: pointer;
 }
 
-/* Card states based on arc position */
-.cvsearch__posterWrap[data-position="-2"] {
-    transform: translateX(60%) rotateY(45deg) scale(0.65);
-    opacity: 0.3;
-    z-index: 1;
-    filter: blur(3px);
-}
-
-.cvsearch__posterWrap[data-position="-1"] {
-    transform: translateX(30%) rotateY(35deg) scale(0.8);
-    opacity: 0.6;
-    z-index: 2;
-    filter: blur(1px);
-}
+/* Card states based on arc position: tighter, denser fan than a plain coverflow */
+.cvsearch__posterWrap[data-position="-4"] { transform: translateX(85%) rotateY(38deg) scale(0.6); opacity: 0.35; z-index: 1; filter: blur(2px); }
+.cvsearch__posterWrap[data-position="-3"] { transform: translateX(65%) rotateY(34deg) scale(0.68); opacity: 0.5; z-index: 2; filter: blur(1.5px); }
+.cvsearch__posterWrap[data-position="-2"] { transform: translateX(45%) rotateY(30deg) scale(0.78); opacity: 0.7; z-index: 3; filter: blur(1px); }
+.cvsearch__posterWrap[data-position="-1"] { transform: translateX(22%) rotateY(24deg) scale(0.9); opacity: 0.9; z-index: 4; filter: blur(0.5px); }
 
 .cvsearch__posterWrap[data-position="0"] {
-    transform: translateX(0) rotateY(0deg) scale(1);
+    transform: translateX(0) rotateY(0deg) scale(1.08);
     opacity: 1;
     z-index: 5;
     filter: blur(0);
 }
 
-.cvsearch__posterWrap[data-position="1"] {
-    transform: translateX(-30%) rotateY(-35deg) scale(0.8);
-    opacity: 0.6;
-    z-index: 2;
-    filter: blur(1px);
-}
-
-.cvsearch__posterWrap[data-position="2"] {
-    transform: translateX(-60%) rotateY(-45deg) scale(0.65);
-    opacity: 0.3;
-    z-index: 1;
-    filter: blur(3px);
-}
+.cvsearch__posterWrap[data-position="1"] { transform: translateX(-22%) rotateY(-24deg) scale(0.9); opacity: 0.9; z-index: 4; filter: blur(0.5px); }
+.cvsearch__posterWrap[data-position="2"] { transform: translateX(-45%) rotateY(-30deg) scale(0.78); opacity: 0.7; z-index: 3; filter: blur(1px); }
+.cvsearch__posterWrap[data-position="3"] { transform: translateX(-65%) rotateY(-34deg) scale(0.68); opacity: 0.5; z-index: 2; filter: blur(1.5px); }
+.cvsearch__posterWrap[data-position="4"] { transform: translateX(-85%) rotateY(-38deg) scale(0.6); opacity: 0.35; z-index: 1; filter: blur(2px); }
 
 /* Card inner */
 .cvsearch__card {
