@@ -65,6 +65,24 @@ function Login() {
         }
     };
 
+    // Requires 'Anonymous sign-ins' enabled in Supabase Auth settings.
+    const handleGuestLogin = async () => {
+        setIsLoading(true);
+        setError('');
+
+        try {
+            const { error: guestError } = await supabase.auth.signInAnonymously();
+            if (guestError) throw guestError;
+
+            navigate('/dashboard');
+        } catch (err) {
+            console.error(' Guest login failed:', err?.message || err);
+            setError(err?.message || 'Guest login failed');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="auth-bg">
             {/* Background video */}
@@ -187,6 +205,17 @@ function Login() {
                                     </button>
                                     <button type="button" className="social-button apple">
                                         <FaApple className="social-icon" /> Apple
+                                    </button>
+                                </div>
+
+                                <div className="social-login">
+                                    <button
+                                        type="button"
+                                        className="social-button"
+                                        onClick={handleGuestLogin}
+                                        disabled={isLoading}
+                                    >
+                                        Sign in as Guest
                                     </button>
                                 </div>
 
