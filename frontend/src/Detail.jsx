@@ -20,12 +20,6 @@ const tmdbImg = (path, size = 'w500') =>
 const tmdbStill = (path, size = 'w300') =>
     path ? `https://image.tmdb.org/t/p/${size}${path}` : FALLBACK_STILL;
 
-const getPosterBg = (it) => {
-    if (!it) return FALLBACK_POSTER;
-    if (it.poster_path) return tmdbImg(it.poster_path, 'w780');
-    return FALLBACK_POSTER;
-};
-
 const RatingCircle = React.memo(({ rating }) => (
     <div className="rating-circle" style={{ '--rating': (rating || 0) * 10 }}>
         <svg className="rating-svg" viewBox="0 0 36 36">
